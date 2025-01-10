@@ -1,0 +1,21 @@
+[package]
+name = "my_svn"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rusqlite = { version = "0.32.0", features = ["bundled"] }
+walkdir = "2.5.0"
+sha1 = "0.10.6"
+sha2 = "0.10"
+chrono = "0.4"
+chrono-tz = "0.10.0"
+ignore = "0.4"
+shell-words = "1.1"
+diff = "0.1"
+colored = "3.0.0"
+
+[features]
+default = ["run"]
+restore = []
+run = []

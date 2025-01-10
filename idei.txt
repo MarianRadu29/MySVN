@@ -1,0 +1,30 @@
+ IDEI SVN
+ 
+ - pentru fiecare branch retin denumirea fisierelor/folderelor si a subfolderelor
+ - salvez intr o baza de date continutul efectiv al unui commit 
+ - crate prentru diff
+
+ Structura pentru repository
+struct Snapshot {
+    files: std::collections::HashMap<String, String> // numele fisierului -> hash-ul fisierului
+}
+
+pub struct Commit {
+    pub hash: String,
+    pub branch_name: String,
+    pub parent: Option<Vec<String>>,
+    pub message: String,
+    pub snapshot: Snapshot,
+    pub timestamp: String
+}
+
+pub struct Repository {
+    pub current_branch: String,
+    pub stage_area: Vec<FileRepo>
+}
+
+#[derive(Debug)]
+struct Branch {
+   Vec<Commit>
+}
+am adaugat ceva!! asdsasa
