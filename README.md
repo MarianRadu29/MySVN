@@ -11,7 +11,7 @@ MySVN is a local version control system designed to track changes in files and d
  - **Simple merges**: Allows merging two branches, provided they have a commit in common;
  - **Diff between branches and with the previous commit**;
  - **Status functionality**(just like `git`);
- - **.gitignore functionality**;
+ - **.gitignore functionality**(The `svn_ignore` file);
 
 
  ## How to Run the Application
