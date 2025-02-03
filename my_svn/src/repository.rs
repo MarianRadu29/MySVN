@@ -24,9 +24,9 @@ use crate::structures::*;
 //(POSIBIL !!!!!) ar mai merge facut un json pentru stage_area,un caz ar fii: fac git add . si dupa inchid programul
 
 //nume tabele:
-    //file_repo
-    //snapshot
-    //commitrepo
+//file_repo
+//snapshot
+//commitrepo
 impl Repository {
     pub fn new() -> Result<Self, MyCostumError> {
         let current_branch;
@@ -748,7 +748,12 @@ impl Repository {
             for filerepo in self.stage_area.iter() {
                 conn.execute(
                     insert_query,
-                    [&filerepo.name, &filerepo.content, &filerepo.hash,&self.current_branch],
+                    [
+                        &filerepo.name,
+                        &filerepo.content,
+                        &filerepo.hash,
+                        &self.current_branch,
+                    ],
                 )?;
             }
             let path = format!(".svn/branches/{}", self.current_branch);
@@ -842,11 +847,16 @@ impl Repository {
             for filerepo in self.stage_area.iter() {
                 if filerepo.status == StatusFile::AddFile
                     || filerepo.status == StatusFile::ModifiesFile
-                {   
+                {
                     //println!("{}",filerepo.name);
                     conn.execute(
                         insert_query,
-                        [&filerepo.name, &filerepo.content, &filerepo.hash,&self.current_branch],
+                        [
+                            &filerepo.name,
+                            &filerepo.content,
+                            &filerepo.hash,
+                            &self.current_branch,
+                        ],
                     )?;
                 }
             }
@@ -890,7 +900,8 @@ impl Repository {
             return Ok(());
         }
 
-        let merge_base_hash = Self::get_commit_by_hash(self, &current_branch, &last_commit_hash)?.hash;
+        let merge_base_hash =
+            Self::get_commit_by_hash(self, &current_branch, &last_commit_hash)?.hash;
         let path = format!(".svn/branches/{}", name_branch);
         let mut file = File::create(path)?;
         file.write_all(merge_base_hash.as_bytes())?;
@@ -937,17 +948,18 @@ impl Repository {
                     let mut stmt = conn.prepare(
                         r#"
                         select content from file_repo where hash=? and branch=?;
-                        "#
+                        "#,
                     )?;
                     let file1_content = stmt
-                        .query_map([hash,branch1], |row| row.get::<_, String>(0))?
+                        .query_map([hash, branch1], |row| row.get::<_, String>(0))?
                         .map(Result::unwrap)
                         .collect::<Vec<String>>()[0]
                         .clone(); //stim ca interogarea are o singura linie
                     let file2_content = stmt
-                        .query_map([branch2_snapshot.files.get(file).unwrap(),branch2], |row| {
-                            Ok(row.get::<_, String>(0).unwrap())
-                        })?
+                        .query_map(
+                            [branch2_snapshot.files.get(file).unwrap(), branch2],
+                            |row| Ok(row.get::<_, String>(0).unwrap()),
+                        )?
                         .map(Result::unwrap)
                         .collect::<Vec<String>>()[0]
                         .clone();
@@ -967,7 +979,7 @@ impl Repository {
                 list_file_both_contains.push(file.clone())
             }
         }
-    
+
         for file in &list_file_both_contains {
             branch2_snapshot.files.remove(file);
             branch1_snapshot.files.remove(file);
@@ -1015,7 +1027,10 @@ impl Repository {
                 )?;
                 let file_last_commit_content = stmt
                     .query_map(
-                        [last_commit_snapshot.files.get(&file.name).unwrap(),&self.current_branch],
+                        [
+                            last_commit_snapshot.files.get(&file.name).unwrap(),
+                            &self.current_branch,
+                        ],
                         |row| Ok(row.get::<_, String>(0).unwrap()),
                     )?
                     .map(Result::unwrap)
@@ -1023,7 +1038,8 @@ impl Repository {
                     .clone(); //stim ca interogarea are o singura linie
                 let nr = get_parent_name()?.len() + 1;
                 println!("File: {}\n", &file.name[nr..]);
-                for diff in diff::lines(&file_last_commit_content, &fs::read_to_string(&file.name)?) {
+                for diff in diff::lines(&file_last_commit_content, &fs::read_to_string(&file.name)?)
+                {
                     match diff {
                         diff::Result::Left(l) => println!("{}", format!("-{}", l).red().bold()),
                         diff::Result::Both(l, _) => println!(" {}", l),
@@ -1036,10 +1052,10 @@ impl Repository {
                 list_files.push(file.clone());
             }
         }
-        if list_files.is_empty(){
+        if list_files.is_empty() {
             return Ok(());
         }
-        if list_files.is_empty(){
+        if list_files.is_empty() {
             return Ok(());
         }
         println!("The remaining stage files status:\n");
@@ -1049,22 +1065,22 @@ impl Repository {
 
         let nr = get_parent_name()?.len() + 1;
 
-        if !add_files.is_empty(){
+        if !add_files.is_empty() {
             println!("Add files:");
             for file in add_files {
                 println!("\t{}", &file.name[nr..].green().bold());
             }
             println!();
         }
-        
-        if !removed_files.is_empty(){
+
+        if !removed_files.is_empty() {
             println!("Removed files:");
             for file in removed_files {
                 println!("\t{}", &file.name[nr..].red().bold());
             }
             println!();
         }
-       
+
         Ok(())
     }
 

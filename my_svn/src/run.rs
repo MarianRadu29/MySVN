@@ -2,7 +2,7 @@ use crate::structures::*;
 use chrono::{Local, Utc};
 use colored::Colorize;
 use shell_words::split; //pentru a parsa un string intr un vector de args
-use std::io::{self,Write};
+use std::io::{self, Write};
 
 #[allow(non_upper_case_globals)]
 const command_not_found: &str = "Command is not found!!";
@@ -35,7 +35,10 @@ pub fn run() {
         println!();
         if args.len() == 1 && args[0] == "svn" {
             //comanda pt afisare detalii comenzii
-            println!("Available {} commands:\n","svn".to_string().bold().yellow());
+            println!(
+                "Available {} commands:\n",
+                "svn".to_string().bold().yellow()
+            );
             println!("\texit\t\t- Exit the application.");
             println!("\tinit\t\t- Initializes the repository.");
             println!("\tnr\t\t- Displays the number of commits in the current branch.");
@@ -71,7 +74,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -89,7 +95,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -99,7 +108,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -109,7 +121,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -121,7 +136,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -162,7 +180,10 @@ pub fn run() {
                     if !repo.is_init() {
                         println!(
                             "{}",
-                            "The repository is not initialized.".to_string().bold().red()
+                            "The repository is not initialized."
+                                .to_string()
+                                .bold()
+                                .red()
                         );
                         continue;
                     }
@@ -177,12 +198,21 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }
-            if args.len()<4{
-                println!("{}","Invalid command! Possible command format: svn diff <branch1> <branch2>".to_string().bold().red());
+            if args.len() < 4 {
+                println!(
+                    "{}",
+                    "Invalid command! Possible command format: svn diff <branch1> <branch2>"
+                        .to_string()
+                        .bold()
+                        .red()
+                );
                 continue;
             }
             if let Err(e) = repo.diff_between_branches(&args[2], &args[3]) {
@@ -199,7 +229,10 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }
@@ -213,7 +246,10 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }
@@ -229,7 +265,10 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }
@@ -245,7 +284,10 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }
@@ -264,7 +306,10 @@ pub fn run() {
                 if !repo.is_init() {
                     println!(
                         "{}",
-                        "The repository is not initialized.".to_string().bold().red()
+                        "The repository is not initialized."
+                            .to_string()
+                            .bold()
+                            .red()
                     );
                     continue;
                 }
@@ -283,7 +328,10 @@ pub fn run() {
             if !repo.is_init() {
                 println!(
                     "{}",
-                    "The repository is not initialized.".to_string().bold().red()
+                    "The repository is not initialized."
+                        .to_string()
+                        .bold()
+                        .red()
                 );
                 continue;
             }

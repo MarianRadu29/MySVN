@@ -8,7 +8,7 @@ pub fn get_default_ignores() -> Result<Vec<String>, std::io::Error> {
     let result = vec![
         get_parent_name()? + ("\\my_svn"),
         get_parent_name()? + ("\\svn_ignore"),
-        //ce e mai jos e in cazul in care se face clone la tot repo ul 
+        //ce e mai jos e in cazul in care se face clone la tot repo ul
         get_parent_name()? + ("\\.git"),
         get_parent_name()? + ("\\README.md"),
         get_parent_name()? + ("\\.gitignore"),
@@ -18,7 +18,7 @@ pub fn get_default_ignores() -> Result<Vec<String>, std::io::Error> {
 
 #[derive(Debug, Clone)]
 pub struct Snapshot {
-    pub files: std::collections::HashMap<String, String> // numele fisierului -> hash-ul fisierului
+    pub files: std::collections::HashMap<String, String>, // numele fisierului -> hash-ul fisierului
 }
 
 #[derive(Clone, Debug)]

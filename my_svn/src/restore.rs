@@ -1,10 +1,11 @@
-use crate::my_error::MyCostumError;
-use crate::structures::get_parent_name;
-use std::{fs::OpenOptions, io::Write};
-
-//#[cfg(feature="restore")]
-#[allow(dead_code)] //cand schimb feature-ul o sa mi apeleze functia asta
+//#[allow(dead_code)] //cand schimb feature-ul o sa mi apeleze functia asta
+#[cfg(feature = "restore")]
 pub fn restore_svn() -> Result<(), MyCostumError> {
+    use crate::my_error::MyCostumError;
+    use crate::structures::get_parent_name;
+    use std::{fs::OpenOptions, io::Write};
+
+
     let mut file = OpenOptions::new()
         .write(true)
         .open(get_parent_name()? + "/svn_ignore")?;
