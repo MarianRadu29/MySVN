@@ -42,6 +42,6 @@ cargo run
 ## List run commands:
  - `cargo run` - comportament normal;
  - `cargo test -- --nocapture` - displays detailed information about each commit stored in the **SVN** object on the screen;
- - `cargo run --no-default-capture --features restore` - restores the entire git object, deletes all commits and all branches except main (it's like opening my_svn for the first time and typing the `svn init` command);
+ - `cargo run --no-default-features --features restore` - restores the entire git object, deletes all commits and all branches except main (it's like opening my_svn for the first time and typing the `svn init` command);
 
 ## If you want to know all the commands and what they do, type `svn`
