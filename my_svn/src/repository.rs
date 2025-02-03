@@ -132,7 +132,7 @@ impl Repository {
                 let entry = result?;
                 let path = entry.path();
                 if !matcher
-                    .matched(path, entry.file_type().map_or(false, |ft| ft.is_dir()))
+                    .matched(path, entry.file_type().is_some_and(|ft| ft.is_dir()))
                     .is_ignore()
                 {
                     let str = format!("{}", entry.path().display()).replace("\\\\", "/");
@@ -249,7 +249,7 @@ impl Repository {
                 let path = entry.path();
                 if !matcher
                     //ignor directoarele
-                    .matched(path, entry.file_type().map_or(false, |ft| ft.is_dir()))
+                    .matched(path, entry.file_type().is_some_and(|ft| ft.is_dir()))
                     .is_ignore()
                 {
                     let str = format!("{}", entry.path().display()).replace("\\\\", "/");
